@@ -1,0 +1,83 @@
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Details</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2 style="text-align: center;">Crypto Supply List</h2>
+
+    <table>
+        <tr>
+            <th>Order</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Max Supply</th>
+            <th>Circulating Supply</th>
+            <th>Total Supply</th>
+            <th>Infinite Supply</th>
+            <th>Bookmark</th>
+        </tr>
+        {% for data in page_obj %}
+        <tr>
+            <td> {{forloop.counter}} </td>
+            <td>{{ data.name }}</td>
+            <td>$ {{ data.quote.USD.price|floatformat:"2" }}</td>
+            <td>{{ data.max_supply|add_commas }}</td>
+            <td>{{ data.circulating_supply|add_commas }}</td>
+            <td>{{ data.total_supply|add_commas}}</td>
+            <td>{{ data.infinite_supply }}</td>
+            <td>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <button type="submit">
+                        {% if data.bookmarked %}
+                            <!-- Display filled star icon if bookmarked -->
+                            &#9733;
+                        {% else %}
+                            <!-- Display empty star icon if not bookmarked -->
+                            &#9734;
+                        {% endif %}
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        
+    </table>
+    <br>
+    <div class="pagination" style="text-align: center;">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+    <br>
+</body>
+</html>

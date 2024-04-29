@@ -1,0 +1,38 @@
+<!-- item_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item List</title>
+</head>
+<body>
+    <h1>Item List</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Bookmark</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td>Ashish Prasad</td>
+                    <td>This is great</td>
+                    <td>
+                        <form action="{% url 'bookmark_toggle' item.id %}" method="post">
+                            <button type="submit">
+                                    <!-- Display filled star icon if bookmarked -->
+                                    &#9733;
+                                    <!-- Display empty star icon if not bookmarked -->
+                                    &#9734;
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+</body>
+</html>
