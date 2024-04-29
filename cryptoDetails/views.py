@@ -19,7 +19,7 @@ def details(request):
 
     headers = {
     'Accepts': 'application/json',
-    'X-CMC_PRO_API_KEY': 'c812dd07-0bba-4591-ac78-5fefcdbe13e2',
+    'X-CMC_PRO_API_KEY': 'b54bcf4d-1bca-4e8e-9a24-22ff2c3d462c',
     }
 
     session = Session()
